@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;StartUpReceiver.java&apos; to &apos;PhotoGallery/src/com.example.photogallery&apos;&#x0D;&#x0A;- Original project: &apos;PhotoGallery&apos;&#x0D;&#x0A;- Destination element: &apos;PhotoGallery/src/com.example.photogallery&apos;&#x0D;&#x0A;- Original element: &apos;StartUpReceiver.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;com.example.photogallery" element1="/src&lt;{StartUpReceiver.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1409490088787" units="1" version="1.0"/>
+</session>

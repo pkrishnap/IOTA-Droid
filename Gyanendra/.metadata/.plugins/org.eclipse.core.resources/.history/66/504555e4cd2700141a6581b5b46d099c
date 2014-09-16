@@ -1,0 +1,231 @@
+package com.example.criminalintent;
+
+import java.util.Date;
+import java.util.UUID;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+
+public class CrimeFragment extends Fragment {
+	
+	private Crime mCrime;
+	EditText mCrimeTitleEditTextView;
+	Button mCrimeDateButton;
+	CheckBox mSolvedCheckbox;
+	Button mSendReportButton;
+	Button mChoosesuspect;
+	
+	public static final String EXTRA_CRIME_ID ="Extra_Crime_ID";
+	private static final String DATE_PICKER ="Date_Picked";
+	private static final int DATE_DIALOG =0;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		//mCrime = new Crime();
+		
+		UUID crimeID = (UUID)(getArguments().getSerializable(EXTRA_CRIME_ID));
+		
+		mCrime = CrimeLabs.get(getActivity()).getCrime(crimeID);
+		
+		setHasOptionsMenu(true);
+		
+		
+		
+	}
+
+	@TargetApi(11)
+	@Override
+	public View onCreateView(LayoutInflater inflater,
+			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_crime, container, false);
+		
+			
+		mCrimeTitleEditTextView = (EditText)v.findViewById(R.id.crimeTitleEditTextView);
+		mCrimeTitleEditTextView.setText(mCrime.getmTitle()); 
+		
+		mSolvedCheckbox = (CheckBox)v.findViewById(R.id.solvedCheckBox);
+		mSolvedCheckbox.setChecked(mCrime.ismSolved());
+		
+		mCrimeDateButton = (Button)v.findViewById(R.id.crimeDateButton);
+		mCrimeDateButton.setText(mCrime.getmDate().toString());
+		
+		mSendReportButton = (Button)v.findViewById(R.id.reportCrimeButton);
+		
+		mCrimeTitleEditTextView.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				mCrime.setmTitle(s.toString());
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+	mSolvedCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			mCrime.setmSolved(isChecked);
+			
+		}
+	});
+	
+	
+	mCrimeDateButton.setText(mCrime.getmDate().toString());
+//	mCrimeDateButton.setEnabled(false);
+	
+	mCrimeDateButton.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			FragmentManager fm = getActivity().getSupportFragmentManager();
+			DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getmDate());
+			dialog.setTargetFragment(CrimeFragment.this, DATE_DIALOG);
+			dialog.show(fm,DATE_PICKER);
+			
+		}
+	});
+	
+	
+	mSendReportButton.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Intent i = new Intent(Intent.ACTION_SEND);
+			i.setType("text/plain");
+			i.putExtra(Intent.EXTRA_TEXT, getCrimeReort());
+			i.putExtra(Intent.EXTRA_SUBJECT, "Crime Report");
+			startActivity(i);
+			
+			
+		}
+	});
+
+	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+		if (NavUtils.getParentActivityName(getActivity())!=null) {
+			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+		
+	}
+	
+		
+		return v;
+		
+
+	}
+	
+	
+	public static CrimeFragment newInstance(UUID crimeId){
+		
+		Bundle args = new Bundle();
+		args.putSerializable(EXTRA_CRIME_ID, crimeId);
+		CrimeFragment fragment = new CrimeFragment();
+		fragment.setArguments(args);
+		return fragment;
+		
+		
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if(resultCode != Activity.RESULT_OK)
+			return;
+		if(requestCode == DATE_DIALOG)	{
+			Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+			mCrime.setmDate(date);
+			mCrimeDateButton.setText(mCrime.getmDate().toString());
+			
+		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			if(NavUtils.getParentActivityName(getActivity())!=null){
+				NavUtils.navigateUpFromSameTask(getActivity());
+			}
+			
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+		
+		
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		CrimeLabs.get(getActivity()).saveCrime();
+	}
+	
+	
+	private String getCrimeReort(){
+		
+		String solvedString = null;
+		
+		if (mCrime.ismSolved()) {
+			solvedString = getString(R.string.crime_solved_text);
+			} else {
+				solvedString = getString(R.string.crime_report_unsolved);
+			}
+		
+		String suspectString = mCrime.getmSuspect();
+		if (suspectString == null) {
+			suspectString = getString(R.string.crime_no_suspect);		
+			} else {
+				
+			suspectString =getString(R.string.crime_suspect, suspectString);
+			}
+		
+		String report = getString(R.string.crime_report, solvedString,suspectString);
+		
+		return report;
+		
+	}
+	
+	
+	
+	
+
+}

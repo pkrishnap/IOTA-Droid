@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical" >
+    
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_title_label" 
+		style="?android:listSeparatorTextViewStyle"/>
+    
+    <EditText
+        android:id="@+id/crimeTitleEditTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/crime_title_hint_text" />
+    
+  	<TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_details_label"
+		style="?android:listSeparatorTextViewStyle"/>
+
+  	<Button
+  	    android:id="@+id/crimeDateButton"
+  	    android:layout_width="match_parent"
+  	    android:layout_height="wrap_content"
+  	    android:layout_marginLeft="16dp"
+  	    android:layout_marginRight="16dp"
+  	    android:text="Button" />
+
+  	<CheckBox
+  	    android:id="@+id/solvedCheckBox"
+  	    android:layout_width="wrap_content"
+  	    android:layout_height="wrap_content"
+  	    android:layout_marginLeft="16dp"
+  	    android:layout_marginRight="16dp"
+  	    android:text="@string/crime_solved_text" />
+
+  	<Button
+  	    android:id="@+id/chooseSuspectButton"
+  	    android:layout_width="match_parent"
+  	    android:layout_height="wrap_content"
+  	    android:layout_marginLeft="16dp"
+  	    android:layout_marginRight="16dp"
+  	    android:layout_marginTop="16dp"
+  	    android:text="@string/choose_suspect" />
+
+  	<Button
+  	    android:id="@+id/reportCrimeButton"
+  	    android:layout_width="match_parent"
+  	    android:layout_height="wrap_content"
+  	    android:layout_marginLeft="16dp"
+  	    android:layout_marginRight="16dp"
+  	    android:layout_marginTop="16dp"
+  	    android:text="@string/send_report" />
+</LinearLayout>

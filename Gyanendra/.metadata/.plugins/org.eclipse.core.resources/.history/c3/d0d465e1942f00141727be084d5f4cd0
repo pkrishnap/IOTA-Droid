@@ -1,0 +1,60 @@
+package com.example.photogallery;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
+import android.util.Log;
+import android.widget.ImageView;
+
+public class ThumbNailDownloader<Token> extends HandlerThread {
+	
+	private static final String TAG = "ThumbNailDownloader";
+	private static final int MESSAGE_DOWNLOAD = 0;
+	private Handler mHandler;
+	
+	Map<Token, String> requestMap = Collections.synchronizedMap(new HashMap<Token, String>());
+	
+	@Override
+	protected void onLooperPrepared() {
+		// TODO Auto-generated method stub
+		mHandler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				if(msg.what==MESSAGE_DOWNLOAD){
+					@SuppressWarnings("unchecked")
+					Token token = (Token) msg.obj;
+					handleRequest(token);
+				}
+				
+				
+			}
+			
+		};
+		
+	}
+	
+
+	protected void handleRequest(Token token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public ThumbNailDownloader() {
+		super(TAG);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void queueThumbnail(Token token, String url){
+		Log.i(TAG,"Got URL " + url);
+		requestMap.put(token, url);
+		mHandler.obtainMessage(MESSAGE_DOWNLOAD, token).sendToTarget();
+	}
+
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;DragAnddraw/res/layout/activity_drag_and_draw.xml&apos; to &apos;fragment_drag_and_draw.xml&apos;" description="Rename resource &apos;activity_drag_and_draw.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/layout/activity_drag_and_draw.xml" name="fragment_drag_and_draw.xml" stamp="1409664524879" updateReferences="true"/>
+</session>

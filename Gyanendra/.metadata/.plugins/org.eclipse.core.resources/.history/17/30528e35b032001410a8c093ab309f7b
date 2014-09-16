@@ -1,0 +1,58 @@
+package com.example.draganddraw;
+
+import android.content.Context;
+import android.graphics.PointF;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class BoxDrawingView extends View {
+	
+	public static final String TAG = "BoxDrawingView"; 
+
+	public BoxDrawingView(Context context) {
+		this(context, null);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BoxDrawingView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		PointF curr = new PointF(event.getX(), event.getY());
+		
+		Log.i(TAG, "Received input at X: " + curr.x + " Y: " + curr.y);
+		
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			Log.i(TAG, "Action Down");
+			break;
+		
+		case MotionEvent.ACTION_UP:
+			Log.i(TAG, "Action Up");
+			break;
+
+		case MotionEvent.ACTION_MOVE:
+			Log.i(TAG, "Action move");
+			break;
+		
+		case MotionEvent.ACTION_CANCEL:
+			Log.i(TAG, "Action Cancel");
+			break;
+			
+		default:
+			break;
+		}
+		
+		
+		
+		return true;
+	}
+
+
+
+}

@@ -1,0 +1,7 @@
+package com.example.photogallery;
+
+import android.support.v4.app.Fragment;
+
+public abstract class VisibleFragment extends Fragment {
+
+}

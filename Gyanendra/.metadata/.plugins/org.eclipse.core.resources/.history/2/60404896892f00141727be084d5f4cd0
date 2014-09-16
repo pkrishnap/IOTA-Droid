@@ -1,0 +1,17 @@
+package com.example.photogallery;
+
+import android.os.HandlerThread;
+
+public class ThumbNailDownloader extends HandlerThread {
+
+	public ThumbNailDownloader(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ThumbNailDownloader(String name, int priority) {
+		super(name, priority);
+		// TODO Auto-generated constructor stub
+	}
+
+}

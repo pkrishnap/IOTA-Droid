@@ -1,0 +1,70 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tableLayoutView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*" >
+
+    <TextView
+        android:id="@+id/selectedChannelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="50dp"
+        android:background="@drawable/window"
+        tools:ignore="HardcodedText,SpUsage" />
+
+    <TextView
+        android:id="@+id/workingChannelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
+        android:background="#555555"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cccccc"
+        android:textSize="20dp"
+        tools:ignore="HardcodedText,SpUsage" />
+<!-- 
+    <TableRow android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/zeroButton"
+			style="@style/RemoteButton"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/oneButton"
+            style="@style/RemoteButton"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/enterButton"
+            style="@style/RemoteButton"
+            android:text="enter" />
+    </TableRow>
+ -->
+ 
+ <include
+     android:layout_weight="1"
+     layout="@layout/button_row_template"
+     tools:ignore="IncludeLayoutParam" />
+ 
+  <include
+      android:layout_weight="1"
+      layout="@layout/button_row_template"
+      tools:ignore="IncludeLayoutParam" />
+  
+   <include
+       android:layout_weight="1"
+       layout="@layout/button_row_template"
+       tools:ignore="IncludeLayoutParam" />
+   
+    <include
+        android:layout_weight="1"
+        layout="@layout/button_row_template"
+        tools:ignore="IncludeLayoutParam" />
+</TableLayout>

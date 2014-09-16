@@ -1,0 +1,20 @@
+package com.example.photogallery;
+
+import android.os.HandlerThread;
+import android.util.Log;
+
+public class ThumbNailDownloader<Token> extends HandlerThread {
+	
+	private static final String TAG = "ThumbNailDownloader";
+
+	public ThumbNailDownloader() {
+		super(TAG);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void queueThumbnail(Token token, String url){
+		Log.i(TAG,"Got URL " + url);
+	}
+
+
+}

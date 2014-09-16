@@ -1,0 +1,68 @@
+package com.example.runtracker;
+
+import com.example.runtracker.RunDatabaseHelper.RunCursor;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.widget.CursorAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+public class RunListFragment extends ListFragment {
+	private RunCursor mRunCursor;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		mRunCursor = RunManager.get(getActivity()).queryRuns();
+		RunCursorAdapter adapter = new RunCursorAdapter(getActivity(),mRunCursor);
+		setListAdapter(adapter);
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		mRunCursor.close();
+		super.onDestroy();
+	}
+	
+	
+	private static class RunCursorAdapter extends CursorAdapter{
+		
+		private RunCursor mRunCursor;
+
+		@SuppressWarnings("deprecation")
+		public RunCursorAdapter(Context context, RunCursor c) {
+			super(context, c, 0);
+			mRunCursor = c;
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void bindView(View arg0, Context arg1, Cursor arg2) {
+			Run run = mRunCursor.getRun();
+			TextView startDateTextView = (TextView) arg0;
+			String cellText = run.getmStartDate().toString();
+			startDateTextView.setText(cellText);
+			
+			
+		}
+
+		@Override
+		public View newView(Context arg0, Cursor arg1, ViewGroup arg2) {
+			LayoutInflater inflater = (LayoutInflater) arg0.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			
+			return inflater.inflate(android.R.layout.simple_list_item_1, arg2, false);
+		}
+		
+		
+		
+	}
+	
+
+}
