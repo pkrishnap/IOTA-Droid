@@ -60,6 +60,11 @@ public class MainActivity extends ActionBarActivity {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
+        if(id== R.id.action_map){
+            openPreferredLocationInMap();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -68,11 +73,13 @@ public class MainActivity extends ActionBarActivity {
         String location = sharedPref.getString(getString(R.string.pref_location_key),
                 getString(R.string.pref_location_default));
 
-        Uri geoLocation = Uri.parse("geo:0,0").buildUpon().
-                appendQueryParameter("q", location).
-                build();
+        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
+                .appendQueryParameter("q", location)
+                .build();
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
+
         if(intent.resolveActivity(getPackageManager())!= null){
             startActivity(intent);
         }else {
