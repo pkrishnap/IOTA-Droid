@@ -85,8 +85,7 @@ public class MainActivity extends ActionBarActivity {
         }else {
             Log.d(LOG_TAG,"Couldn't call"+location+"no location");
         }
-
-
-
     }
+
+
 }
