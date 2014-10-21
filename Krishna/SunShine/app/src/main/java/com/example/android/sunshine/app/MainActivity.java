@@ -34,12 +34,46 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG,"In Create");
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new ForecastFragment())
                     .commit();
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(LOG_TAG,"In Pause");
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(LOG_TAG,"In Start");
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(LOG_TAG,"In Resume");
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Log.d(LOG_TAG,"In Restart");
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(LOG_TAG,"In Stop");
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.d(LOG_TAG,"In Destroy");
     }
 
 
@@ -67,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     private void openPreferredLocationInMap(){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
